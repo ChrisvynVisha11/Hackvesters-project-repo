@@ -1,17 +1,7 @@
-# Grind and Crumb: café chain ops dashboard and £1.5m investment planner
+# Hackvesters: Café chain ops dashboard and £1.5m investment planner for Grind & Crumb
 
-**Live web app:** [WEB_APP_URL](WEB_APP_URL)
+**Live web app:** [WEB_APP_URL](https://grind-n-crumb.lovable.app)
 **Executive report (2 pages):** [Grind_and_Crumb_Report.pdf](./Grind_and_Crumb_Report.pdf)
-
-Built for the Code & Consult Hackathon client brief. Grind & Crumb is a fictional 12-café chain in the north of England. Its board has £1.5m to invest, and the CEO asked:
-
-> *"Sales are up, but profit doesn't feel like it… I need to see what's actually going on, store by store, and I need a tool my ops team can keep using after you leave."*
-
-This repo contains the web app, which answers that question and lets the ops team keep tracking it, and the report with our recommendation.
-
----
-
-## The answer in one minute
 
 Sales rose **14%** (July 2025 to June 2026), but store margin fell from **14.1% to 12.3%**. The growth came through the most expensive routes:
 
@@ -58,43 +48,6 @@ The remaining **£275k** is released at month 6 only if both new cafés are trad
 | **Investment plan** | The £1.5m planner: tick options in or out, edit amounts, add your own ideas, see payback and 5-year gain, open a risk review for each option |
 | **Chatbot** | An AI advisor (Gemini via the Lovable AI gateway) that answers questions about the data and reviews the plan |
 
-## Tech stack
-
-- [TanStack Start](https://tanstack.com/start) (React, file-based routing) with Vite
-- Tailwind CSS v4 and Radix UI components
-- Recharts for charts
-- Vercel AI SDK with an OpenAI-compatible Lovable AI gateway for the chatbot
-- Vitest for tests
-- Built with [Lovable](https://lovable.dev)
-
-## Running locally
-
-You need [Bun](https://bun.sh) or Node.js 20+.
-
-```sh
-git clone <this-repo-url>
-cd grind-and-crumb-final-main
-bun install        # or: npm install
-bun run dev        # or: npm run dev
-```
-
-Then open the local URL Vite prints, usually `http://localhost:5173`.
-
-The chatbot needs an API key. Create a `.env` file in the project root containing:
-
-```
-LOVABLE_API_KEY=your_key_here
-```
-
-Every other page works without it.
-
-Other scripts:
-
-```sh
-bun run build      # production build
-bun run test       # run unit tests (models, timeline, upload)
-bun run lint       # lint
-```
 
 ## Project structure
 
@@ -113,21 +66,4 @@ src/
     ai/              chatbot prompt and gateway
 ```
 
-## Data
 
-The app is built on the Grind & Crumb data pack (1 July 2025 to 30 June 2026, GBP, net of VAT). Data issues we handled include:
-
-- duplicate receipts and refund rows
-- a mixed date format in Hull's waste log
-- a broken door counter at Northern Quarter
-- a footfall spike in Harrogate
-- duplicate loyalty IDs
-- 31 spellings of the 12 store names in reviews
-
-The report lists every issue and assumption.
-
-Cost assumptions follow the client brief:
-
-- labour = scheduled hours × wage × 1.13
-- delivery cost = platform commission + £0.45 packaging + 4 minutes of staff time per order
-- head office costs and tax are excluded
