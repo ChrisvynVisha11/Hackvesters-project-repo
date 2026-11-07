@@ -95,23 +95,6 @@ function IncomePage() {
         <Kpi label="App click & collect" value={gbp(c.app_revenue)} sub={`${pct((c.app_revenue / c.total_revenue) * 100)} of sales`} />
       </div>
 
-      <Briefing title="Maximising revenue and margin per item" question="Should we scrap the oat milk surcharge?">
-        <div className="grid gap-4 md:grid-cols-3">
-          <BriefingPoint title="Scrap the 40p oat milk charge">
-            Introduced in January to recover ~£40k, it triggered a wave of angry reviews just as Bean
-            Social dropped its own charge. Lost regulars cost more than the fee brings in.
-          </BriefingPoint>
-          <BriefingPoint title="Push the high-margin hero drinks">
-            Lattes, flat whites, Americanos and iced drinks earn 75–85% margins and most of the revenue.
-            Make them the first thing suggested at the till and in the app.
-          </BriefingPoint>
-          <BriefingPoint title="Use meal deals to lift basket size">
-            Pairing a drink with a sandwich raises the average spend while keeping a healthy blended
-            margin — and helps sell lunch stock before it's binned.
-          </BriefingPoint>
-        </div>
-      </Briefing>
-
       <div className="grid gap-6 lg:grid-cols-2">
         <Panel title="Top 10 sellers" subtitle="By annual revenue">
           <ProductList items={top} tone="positive" />
@@ -173,6 +156,23 @@ function IncomePage() {
           </table>
         </div>
       </Panel>
+
+      <Briefing title="Maximising revenue and margin per item" question="Should we scrap the oat milk surcharge?">
+        <div className="grid gap-4 md:grid-cols-3">
+          <BriefingPoint title="Scrap the 40p oat milk charge">
+            Introduced in January to recover ~£40k, it triggered a wave of angry reviews just as Bean
+            Social dropped its own charge. Lost regulars cost more than the fee brings in.
+          </BriefingPoint>
+          <BriefingPoint title="Push the high-margin hero drinks">
+            Lattes, flat whites, Americanos and iced drinks earn 75–85% margins and most of the revenue.
+            Make them the first thing suggested at the till and in the app.
+          </BriefingPoint>
+          <BriefingPoint title="Use meal deals to lift basket size">
+            Pairing a drink with a sandwich raises the average spend while keeping a healthy blended
+            margin — and helps sell lunch stock before it's binned.
+          </BriefingPoint>
+        </div>
+      </Briefing>
     </>
   );
 }

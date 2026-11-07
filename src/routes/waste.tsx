@@ -73,25 +73,6 @@ function WastePage() {
         ))}
       </div>
 
-      <Briefing title="Cutting the waste bill" question="How do we reduce waste at Leeds Briggate?">
-        <div className="grid gap-4 md:grid-cols-3">
-          <BriefingPoint title="1 · Smart prep levels">
-            Set daily prep from a 3-day weather and footfall forecast instead of last year's fixed
-            numbers — worth around £40k a year.
-          </BriefingPoint>
-          <BriefingPoint title="2 · 3pm app markdowns">
-            A 40% "happy hour" on bakery items in the app moves stock that would otherwise be binned.
-          </BriefingPoint>
-          <BriefingPoint title="3 · Surplus bags">
-            Sell what's left through Too Good To Go to recover at least the ingredient cost.
-          </BriefingPoint>
-        </div>
-        <p className="text-sm text-ink-foreground/75">
-          Store habits matter too: Briggate's manager kept last year's prep after Trinity opened, and
-          Hull's manager over-orders "to be safe".
-        </p>
-      </Briefing>
-
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Waste cost by store" subtitle="Annual cost of food binned" className="lg:col-span-3">
           <div className="h-80">
@@ -140,6 +121,25 @@ function WastePage() {
           </div>
         </Panel>
       </div>
+
+      <Briefing title="Cutting the waste bill" question="How do we reduce waste at Leeds Briggate?">
+        <div className="grid gap-4 md:grid-cols-3">
+          <BriefingPoint title="1 · Smart prep levels">
+            Set daily prep from a 3-day weather and footfall forecast instead of last year's fixed
+            numbers — worth around £40k a year.
+          </BriefingPoint>
+          <BriefingPoint title="2 · 3pm app markdowns">
+            A 40% "happy hour" on bakery items in the app moves stock that would otherwise be binned.
+          </BriefingPoint>
+          <BriefingPoint title="3 · Surplus bags">
+            Sell what's left through Too Good To Go to recover at least the ingredient cost.
+          </BriefingPoint>
+        </div>
+        <p className="text-sm text-ink-foreground/75">
+          Store habits matter too: Briggate's manager kept last year's prep after Trinity opened, and
+          Hull's manager over-orders "to be safe".
+        </p>
+      </Briefing>
     </>
   );
 }

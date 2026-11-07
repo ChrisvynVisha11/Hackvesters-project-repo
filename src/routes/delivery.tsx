@@ -86,21 +86,6 @@ function DeliveryPage() {
         <Kpi label="Dashly commission" value="33%" sub="Up from 27% on 1 April" tone="negative" />
       </div>
 
-      <Briefing title="Fixing the delivery margin leak" question="Should we bring in an £8 minimum basket on delivery?">
-        <div className="grid gap-4 md:grid-cols-2">
-          <BriefingPoint title="The under-£8 problem">
-            A single £3.50 Americano on Dashly: commission takes £1.16, packaging £0.45, ingredients
-            £0.56 and four minutes of barista time £0.87. That leaves £0.46 before rent — and it blocks
-            the queue for walk-in customers.
-          </BriefingPoint>
-          <BriefingPoint title="Partner strategy">
-            RushEats carries most of the volume at a fixed 30% for 12 months and is recommending an £8
-            minimum or £1.50 small-order fee — partners who did it saw average orders rise 18–25%. Use
-            that to push Dashly back down.
-          </BriefingPoint>
-        </div>
-      </Briefing>
-
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Order size mix" subtitle={`Sample of ${n(totalSample)} delivery orders`} className="lg:col-span-3">
           <div className="h-64">
@@ -183,6 +168,21 @@ function DeliveryPage() {
           </div>
         </div>
       </Panel>
+
+      <Briefing title="Fixing the delivery margin leak" question="Should we bring in an £8 minimum basket on delivery?">
+        <div className="grid gap-4 md:grid-cols-2">
+          <BriefingPoint title="The under-£8 problem">
+            A single £3.50 Americano on Dashly: commission takes £1.16, packaging £0.45, ingredients
+            £0.56 and four minutes of barista time £0.87. That leaves £0.46 before rent — and it blocks
+            the queue for walk-in customers.
+          </BriefingPoint>
+          <BriefingPoint title="Partner strategy">
+            RushEats carries most of the volume at a fixed 30% for 12 months and is recommending an £8
+            minimum or £1.50 small-order fee — partners who did it saw average orders rise 18–25%. Use
+            that to push Dashly back down.
+          </BriefingPoint>
+        </div>
+      </Briefing>
     </>
   );
 }

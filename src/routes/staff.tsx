@@ -76,23 +76,6 @@ function StaffPage() {
         <Kpi label="Labour cost" value={gbp(data.chain.total_labour)} sub={`${pct((data.chain.total_labour / data.chain.total_revenue) * 100)} of sales`} />
       </div>
 
-      <Briefing title="Stopping the churn at the transit stores" question="How do we reduce staff turnover at Manchester Piccadilly?">
-        <div className="grid gap-4 md:grid-cols-3">
-          <BriefingPoint title="Turnover is catastrophic at transit hubs">
-            {worst.store_name} lost {worst.staff.leavers} people on a team of {worst.staff.headcount} (
-            {pct(worst.staff.turnover_rate_pct, 0)}) with a staff score of {worst.staff.avg_survey_score}/10.
-            Baristas leave for concourse chains paying 50p an hour more.
-          </BriefingPoint>
-          <BriefingPoint title="Why people leave">
-            Workload and understaffing at peak times, followed by better pay elsewhere, account for the
-            largest share of departures in the exit survey.
-          </BriefingPoint>
-          <BriefingPoint title="The fix">
-            Move hours into the 11:30–13:30 peak and pay a 50p/hour lunch premium at the transit stores.
-          </BriefingPoint>
-        </div>
-      </Briefing>
-
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Turnover & staff happiness by store" subtitle="Bars: yearly turnover % · line: survey score out of 10" className="lg:col-span-3">
           <div className="h-80">
@@ -132,6 +115,22 @@ function StaffPage() {
         </Panel>
       </div>
 
+      <Briefing title="Stopping the churn at the transit stores" question="How do we reduce staff turnover at Manchester Piccadilly?">
+        <div className="grid gap-4 md:grid-cols-3">
+          <BriefingPoint title="Turnover is catastrophic at transit hubs">
+            {worst.store_name} lost {worst.staff.leavers} people on a team of {worst.staff.headcount} (
+            {pct(worst.staff.turnover_rate_pct, 0)}) with a staff score of {worst.staff.avg_survey_score}/10.
+            Baristas leave for concourse chains paying 50p an hour more.
+          </BriefingPoint>
+          <BriefingPoint title="Why people leave">
+            Workload and understaffing at peak times, followed by better pay elsewhere, account for the
+            largest share of departures in the exit survey.
+          </BriefingPoint>
+          <BriefingPoint title="The fix">
+            Move hours into the 11:30–13:30 peak and pay a 50p/hour lunch premium at the transit stores.
+          </BriefingPoint>
+        </div>
+      </Briefing>
     </>
   );
 }
