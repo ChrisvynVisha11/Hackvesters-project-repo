@@ -87,11 +87,11 @@ function Overview() {
   const navigate = useNavigate();
   const c = data.chain;
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all");
-  const [sort, setSort] = useState<string>(SORTS[0].id);
+  const [sort, setSort] = useState<string>("profit-asc");
   const [trendStores, setTrendStores] = useState<string[]>(["S03", "S12", "S07", "S04"]);
 
   const stores = useMemo(() => {
-    const opt = SORTS.find((x) => x.id === sort) ?? SORTS[0];
+    const opt = SORTS.find((x) => x.id === sort) ?? SORTS[0]!;
     const list = [...data.stores].sort(opt.compare);
     if (filter === "all") return list;
     return list.filter((s) => {
