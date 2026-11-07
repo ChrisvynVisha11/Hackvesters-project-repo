@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Dashboard figures come from the bundled `src/data/dashboard.json` (the original Python pipeline's output) via `useDashboard()`; never hard-code numbers in pages that the data already holds — uploads must be able to change them.
+- CSV uploads are recomputed in the browser by `src/lib/upload.ts` and live only in session state — there is no database for business data.
+- Simulator and planner formulas live in `src/lib/models.ts` as pure functions with tests; pages only render them.
+- The Board Advisor chat streams through the `/api/chat` server route (`src/lib/ai/chat.server.ts`) on Lovable AI Gateway with a Gemini model; its system prompt is built server-side from the same JSON plus interview/market notes.
