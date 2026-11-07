@@ -278,7 +278,7 @@ function TimelinePage() {
               <Tooltip
                 {...chartTooltipStyle}
                 labelFormatter={(_, payload) => (payload?.[0]?.payload as { label?: string } | undefined)?.label ?? ""}
-                formatter={(v: number, k) => [gbp(v), k]}
+                formatter={(v, k) => [gbp(Number(v)), k]}
               />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               <Bar
