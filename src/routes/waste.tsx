@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis } from "recharts";
 
 import {
   axisProps,
@@ -16,13 +16,13 @@ import { gbp, gbpShort, n, pct } from "@/lib/format";
 export const Route = createFileRoute("/waste")({
   head: () => ({
     meta: [
-      { title: "Food Waste — Grind & Crumb CEO Command Centre" },
+      { title: "Food Waste — Grind and Crumb" },
       {
         name: "description",
         content:
-          "How much food each Grind & Crumb café bins, which categories cost most, and three ways to cut it.",
+          "How much food each Grind and Crumb café bins, which categories cost most, and three ways to cut it.",
       },
-      { property: "og:title", content: "Grind & Crumb — Food Waste" },
+      { property: "og:title", content: "Grind and Crumb — Food Waste" },
       { property: "og:description", content: "Food waste by store and category, with fixes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,6 +30,21 @@ export const Route = createFileRoute("/waste")({
   }),
   component: WastePage,
 });
+
+const PIE_COLORS = [
+  "var(--chart-2)",
+  "var(--chart-1)",
+  "var(--chart-4)",
+  "var(--chart-3)",
+  "var(--chart-5)",
+  "var(--negative)",
+  "var(--warning)",
+  "var(--positive)",
+  "var(--brand-soft)",
+  "var(--muted-foreground)",
+  "var(--sidebar-accent)",
+  "var(--accent)",
+];
 
 function WastePage() {
   const { data } = useDashboard();
@@ -48,14 +63,21 @@ function WastePage() {
     .map(([name, v]) => ({ name, ...v, pct: v.prep ? (v.wasted / v.prep) * 100 : 0 }))
     .sort((a, b) => b.cost - a.cost);
   const total = data.chain.total_waste_cost;
-  const top3 = stores.slice(0, 3);
+  const storeTotal = stores.reduce((a, s) => a + s.waste.cost_wasted, 0);
+  const pie = stores.map((s, i) => ({
+    id: s.store_id,
+    name: s.store_name,
+    cost: Math.round(s.waste.cost_wasted),
+    share: storeTotal ? (s.waste.cost_wasted / storeTotal) * 100 : 0,
+    color: PIE_COLORS[i % PIE_COLORS.length]!,
+  }));
 
   return (
     <>
       <PageHeader
         eyebrow="Food waste"
-        title={`${gbp(total)} of food went in the bin`}
-        description={`Highest at ${top3.map((s) => s.store_name).join(", ")}. Prep levels are set centrally and haven't changed with the seasons or footfall.`}
+        title="Food Waste"
+        description="How much food each café prepares and throws away, by store and by category."
       />
 
       <div className="grid gap-3 md:grid-cols-3 md:gap-4">
@@ -73,24 +95,39 @@ function WastePage() {
         ))}
       </div>
 
-      <Briefing title="Cutting the waste bill" question="How do we reduce waste at Leeds Briggate?">
-        <div className="grid gap-4 md:grid-cols-3">
-          <BriefingPoint title="1 · Smart prep levels">
-            Set daily prep from a 3-day weather and footfall forecast instead of last year's fixed
-            numbers — worth around £40k a year.
-          </BriefingPoint>
-          <BriefingPoint title="2 · 3pm app markdowns">
-            A 40% "happy hour" on bakery items in the app moves stock that would otherwise be binned.
-          </BriefingPoint>
-          <BriefingPoint title="3 · Surplus bags">
-            Sell what's left through Too Good To Go to recover at least the ingredient cost.
-          </BriefingPoint>
+      <Panel title="Share of waste by store" subtitle="Each café's slice of the total cost of food binned">
+        <div className="grid items-center gap-6 md:grid-cols-2">
+          <div className="h-80">
+            <ChartFrame>
+              <PieChart>
+                <Pie
+                  data={pie}
+                  dataKey="cost"
+                  nameKey="name"
+                  innerRadius="50%"
+                  outerRadius="88%"
+                  paddingAngle={1.2}
+                  stroke="var(--card)"
+                >
+                  {pie.map((x) => (
+                    <Cell key={x.id} fill={x.color} />
+                  ))}
+                </Pie>
+                <Tooltip {...chartTooltipStyle} formatter={(v: number) => [gbp(v), "Wasted"]} />
+              </PieChart>
+            </ChartFrame>
+          </div>
+          <ul className="grid gap-1.5 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+            {pie.map((x) => (
+              <li key={x.id} className="flex items-center gap-2 text-sm">
+                <span className="size-3 shrink-0 rounded-sm" style={{ background: x.color }} />
+                <span className="min-w-0 flex-1 truncate">{x.name}</span>
+                <span className="num text-xs text-muted-foreground">{pct(x.share)}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <p className="text-sm text-ink-foreground/75">
-          Store habits matter too: Briggate's manager kept last year's prep after Trinity opened, and
-          Hull's manager over-orders "to be safe".
-        </p>
-      </Briefing>
+      </Panel>
 
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Waste cost by store" subtitle="Annual cost of food binned" className="lg:col-span-3">
@@ -140,6 +177,25 @@ function WastePage() {
           </div>
         </Panel>
       </div>
+
+      <Briefing title="Cutting the waste bill" question="How do we reduce waste at Leeds Briggate?">
+        <div className="grid gap-4 md:grid-cols-3">
+          <BriefingPoint title="1 · Smart prep levels">
+            Set daily prep from a 3-day weather and footfall forecast instead of last year's fixed
+            numbers — worth around £40k a year.
+          </BriefingPoint>
+          <BriefingPoint title="2 · 3pm app markdowns">
+            A 40% "happy hour" on bakery items in the app moves stock that would otherwise be binned.
+          </BriefingPoint>
+          <BriefingPoint title="3 · Surplus bags">
+            Sell what's left through Too Good To Go to recover at least the ingredient cost.
+          </BriefingPoint>
+        </div>
+        <p className="text-sm text-ink-foreground/75">
+          Store habits matter too: Briggate's manager kept last year's prep after Trinity opened, and
+          Hull's manager over-orders "to be safe".
+        </p>
+      </Briefing>
     </>
   );
 }

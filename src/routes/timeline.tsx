@@ -7,7 +7,7 @@ import { AskChip, axisProps, chartTooltipStyle, ChartFrame, Kpi, PageHeader, Pan
 import { ScrollRow } from "@/components/dash/ScrollRow";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import bundledDaily from "@/data/daily.json";
 import { useDashboard } from "@/lib/data-context";
 import { gbp, gbpPence, gbpShort, n, pct } from "@/lib/format";
@@ -27,13 +27,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/timeline")({
   head: () => ({
     meta: [
-      { title: "Store Timeline — Grind & Crumb CEO Command Centre" },
+      { title: "Store Timeline — Grind and Crumb" },
       {
         name: "description",
         content:
-          "Step through Grind & Crumb's year day by day, week by week or month by month to see each café's sales, profit, footfall and food waste.",
+          "Step through Grind and Crumb's year day by day, week by week or month by month to see each café's sales, profit, footfall and food waste.",
       },
-      { property: "og:title", content: "Grind & Crumb — Store Timeline" },
+      { property: "og:title", content: "Grind and Crumb — Store Timeline" },
       {
         property: "og:description",
         content: "Daily, weekly, monthly and yearly results for every café.",
@@ -112,13 +112,13 @@ function TimelinePage() {
   return (
     <>
       <PageHeader
-        eyebrow="Timeline · FY 2025/26"
+        eyebrow="Timeline"
         title="Store results, day by day"
         description="Pick a café and a time length, then step through the year to see sales, profit, visitors and food waste for any single day, week, month or year."
         actions={<AskChip question={`What stands out in ${storeName}'s results for ${period.label}?`} />}
       />
 
-      <section className="surface grid gap-4 p-4 md:p-5">
+      <section className="surface grid grid-cols-1 gap-4 p-4 md:p-5">
         <div>
           <div className="eyebrow mb-2 text-muted-foreground">Café</div>
           <ScrollRow label="cafés" activeKey={store}>
@@ -204,15 +204,22 @@ function TimelinePage() {
                 <ChevronRight className="size-4" />
               </Button>
             </div>
-            {list.length > 2 && (
-              <Slider
-                min={0}
-                max={list.length - 1}
-                step={1}
-                value={[idx]}
-                onValueChange={([v]) => v !== undefined && setAnchor(list[v]!.from)}
-                aria-label={`Choose a ${noun}`}
-              />
+            {list.length > 1 && (
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="eyebrow text-muted-foreground">Choose a {noun}</span>
+                <Select value={String(idx)} onValueChange={(v) => setAnchor(list[Number(v)]!.from)}>
+                  <SelectTrigger className="w-72 bg-card" aria-label={`Choose a ${noun}`}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-80">
+                    {list.map((p, i) => (
+                      <SelectItem key={p.key} value={String(i)}>
+                        {p.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             )}
           </div>
         )}
@@ -271,7 +278,7 @@ function TimelinePage() {
               <Tooltip
                 {...chartTooltipStyle}
                 labelFormatter={(_, payload) => (payload?.[0]?.payload as { label?: string } | undefined)?.label ?? ""}
-                formatter={(v: number, k) => [gbp(v), k]}
+                formatter={(v, k) => [gbp(Number(v)), k]}
               />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               <Bar

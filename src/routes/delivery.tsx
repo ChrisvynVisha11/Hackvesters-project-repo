@@ -20,13 +20,13 @@ import { deliveryEconomics, type DeliveryInputs } from "@/lib/models";
 export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
-      { title: "Delivery — Grind & Crumb CEO Command Centre" },
+      { title: "Delivery — Grind and Crumb" },
       {
         name: "description",
         content:
           "Why small delivery orders lose money, how RushEats and Dashly compare, and a pricing calculator to protect margin.",
       },
-      { property: "og:title", content: "Grind & Crumb — Delivery Economics" },
+      { property: "og:title", content: "Grind and Crumb — Delivery Economics" },
       { property: "og:description", content: "Delivery partner costs and a pricing calculator." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -75,8 +75,8 @@ function DeliveryPage() {
     <>
       <PageHeader
         eyebrow="Delivery"
-        title="Delivery is growing — but leaking margin"
-        description={`${gbp(c.delivery_revenue)} of delivery sales cost ${gbp(c.total_delivery_costs)} in commission and packaging before a single barista minute is counted.`}
+        title="Delivery statistics"
+        description="Delivery sales, partner fees and order sizes across all cafés, plus a calculator to test pricing rules."
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
@@ -85,21 +85,6 @@ function DeliveryPage() {
         <Kpi label="Orders under £8" value={pct((b.under_8 / totalSample) * 100)} sub="Lose money after costs" tone="warning" />
         <Kpi label="Dashly commission" value="33%" sub="Up from 27% on 1 April" tone="negative" />
       </div>
-
-      <Briefing title="Fixing the delivery margin leak" question="Should we bring in an £8 minimum basket on delivery?">
-        <div className="grid gap-4 md:grid-cols-2">
-          <BriefingPoint title="The under-£8 problem">
-            A single £3.50 Americano on Dashly: commission takes £1.16, packaging £0.45, ingredients
-            £0.56 and four minutes of barista time £0.87. That leaves £0.46 before rent — and it blocks
-            the queue for walk-in customers.
-          </BriefingPoint>
-          <BriefingPoint title="Partner strategy">
-            RushEats carries most of the volume at a fixed 30% for 12 months and is recommending an £8
-            minimum or £1.50 small-order fee — partners who did it saw average orders rise 18–25%. Use
-            that to push Dashly back down.
-          </BriefingPoint>
-        </div>
-      </Briefing>
 
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Order size mix" subtitle={`Sample of ${n(totalSample)} delivery orders`} className="lg:col-span-3">
@@ -183,6 +168,21 @@ function DeliveryPage() {
           </div>
         </div>
       </Panel>
+
+      <Briefing title="Fixing the delivery margin leak" question="Should we bring in an £8 minimum basket on delivery?">
+        <div className="grid gap-4 md:grid-cols-2">
+          <BriefingPoint title="The under-£8 problem">
+            A single £3.50 Americano on Dashly: commission takes £1.16, packaging £0.45, ingredients
+            £0.56 and four minutes of barista time £0.87. That leaves £0.46 before rent — and it blocks
+            the queue for walk-in customers.
+          </BriefingPoint>
+          <BriefingPoint title="Partner strategy">
+            RushEats carries most of the volume at a fixed 30% for 12 months and is recommending an £8
+            minimum or £1.50 small-order fee — partners who did it saw average orders rise 18–25%. Use
+            that to push Dashly back down.
+          </BriefingPoint>
+        </div>
+      </Briefing>
     </>
   );
 }

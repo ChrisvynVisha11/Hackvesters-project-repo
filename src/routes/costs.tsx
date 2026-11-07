@@ -18,13 +18,13 @@ import { COST_LEVERS, costSavings, marginAfterSavings } from "@/lib/models";
 export const Route = createFileRoute("/costs")({
   head: () => ({
     meta: [
-      { title: "Costs & Savings — Grind & Crumb CEO Command Centre" },
+      { title: "Costs & Savings — Grind and Crumb" },
       {
         name: "description",
         content:
-          "Where Grind & Crumb's £7.6M of costs go, what can be renegotiated, and a simulator for the annual savings.",
+          "Where Grind and Crumb's £7.6M of costs go, what can be renegotiated, and a simulator for the annual savings.",
       },
-      { property: "og:title", content: "Grind & Crumb — Costs & Savings" },
+      { property: "og:title", content: "Grind and Crumb — Costs & Savings" },
       { property: "og:description", content: "Cost breakdown and a savings simulator for the café chain." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -67,33 +67,9 @@ function CostsPage() {
     <>
       <PageHeader
         eyebrow="Costs & savings"
-        title="Where the money goes"
+        title="Spending/Costs"
         description={`${gbp(c.total_expenses)} of costs against ${gbp(c.total_revenue)} of sales. Labour, ingredients and rent make up ${pct(((c.total_labour + c.total_cogs + c.total_rent) / c.total_expenses) * 100, 0)} of the bill.`}
       />
-
-      <Briefing
-        title="Where money can be saved, renegotiated or rethought"
-        question="Which cost savings should we do first, and how much will they save?"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <BriefingPoint title={`Labour (${gbpShort(c.total_labour)} · ${pct((c.total_labour / c.total_revenue) * 100)} of sales)`}>
-            Don't cut total hours — move them. Trim quiet Monday/Tuesday mornings and put 4–6 hours into
-            the 11:30–13:30 rush at the station and office stores.
-          </BriefingPoint>
-          <BriefingPoint title={`Delivery fees (${gbpShort(c.total_delivery_costs)})`}>
-            Dashly raised commission from 27% to 33%. Push back to 28% using RushEats exclusivity as
-            leverage — worth about £22,500 a year.
-          </BriefingPoint>
-          <BriefingPoint title={`Rent (${gbpShort(c.total_rent)})`}>
-            Piccadilly's £366k rent is out of line with what the store captures. Open talks with the
-            landlord on a base-plus-turnover lease.
-          </BriefingPoint>
-          <BriefingPoint title={`Repairs (${gbpShort(c.total_repairs)}) & consumables (${gbpShort(c.total_other_opex)})`}>
-            Emergency callouts at Hull and Spinningfields are burning cash — replace the old kit. Put
-            cups, chemicals and paper on one national contract for an 8–10% rebate.
-          </BriefingPoint>
-        </div>
-      </Briefing>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
         {costs.map((x, i) => (
@@ -172,6 +148,30 @@ function CostsPage() {
           </div>
         </Panel>
       </div>
+
+      <Briefing
+        title="Where money can be saved, renegotiated or rethought"
+        question="Which cost savings should we do first, and how much will they save?"
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <BriefingPoint title={`Labour (${gbpShort(c.total_labour)} · ${pct((c.total_labour / c.total_revenue) * 100)} of sales)`}>
+            Don't cut total hours — move them. Trim quiet Monday/Tuesday mornings and put 4–6 hours into
+            the 11:30–13:30 rush at the station and office stores.
+          </BriefingPoint>
+          <BriefingPoint title={`Delivery fees (${gbpShort(c.total_delivery_costs)})`}>
+            Dashly raised commission from 27% to 33%. Push back to 28% using RushEats exclusivity as
+            leverage — worth about £22,500 a year.
+          </BriefingPoint>
+          <BriefingPoint title={`Rent (${gbpShort(c.total_rent)})`}>
+            Piccadilly's £366k rent is out of line with what the store captures. Open talks with the
+            landlord on a base-plus-turnover lease.
+          </BriefingPoint>
+          <BriefingPoint title={`Repairs (${gbpShort(c.total_repairs)}) & consumables (${gbpShort(c.total_other_opex)})`}>
+            Emergency callouts at Hull and Spinningfields are burning cash — replace the old kit. Put
+            cups, chemicals and paper on one national contract for an 8–10% rebate.
+          </BriefingPoint>
+        </div>
+      </Briefing>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, Banknote, PoundSterling, ShoppingBag, Trash2, TrendingUp } from "lucide-react";
+import { ArrowRight, ArrowUpDown, Banknote, PoundSterling, TrendingUp, Trophy, Users } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
   Bar,
@@ -27,20 +27,23 @@ import {
   StatusBadge,
   ChartFrame,
 } from "@/components/dash/primitives";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useDashboard } from "@/lib/data-context";
-import { gbp, gbpShort, monthLabel, pct } from "@/lib/format";
+import { gbp, gbpShort, monthLabel, n, pct } from "@/lib/format";
+import { topPerformingTeam, totalStaff } from "@/lib/models";
+import type { Store } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Overview — Grind & Crumb CEO Command Centre" },
+      { title: "Overview — Grind and Crumb" },
       {
         name: "description",
         content:
-          "How all 12 Grind & Crumb cafés performed in FY 2025/26: sales, profit, the stores dragging margin down and what to fix first.",
+          "How all 12 Grind and Crumb cafés performed: sales, profit, the stores dragging margin down and what to fix first.",
       },
-      { property: "og:title", content: "Grind & Crumb — Portfolio Overview" },
+      { property: "og:title", content: "Grind and Crumb — Portfolio Overview" },
       {
         property: "og:description",
         content: "Sales, profit and the stores dragging margin down across all 12 cafés.",
@@ -59,6 +62,19 @@ const FILTERS = [
   { id: "under", label: "Underperforming" },
 ] as const;
 
+const SORTS: { id: string; label: string; compare: (a: Store, b: Store) => number }[] = [
+  { id: "profit-asc", label: "Profit: lowest first", compare: (a, b) => a.profit - b.profit },
+  { id: "profit-desc", label: "Profit: highest first", compare: (a, b) => b.profit - a.profit },
+  { id: "revenue-desc", label: "Revenue: highest first", compare: (a, b) => b.sales.total - a.sales.total },
+  { id: "revenue-asc", label: "Revenue: lowest first", compare: (a, b) => a.sales.total - b.sales.total },
+  { id: "margin-desc", label: "Margin: highest first", compare: (a, b) => b.margin - a.margin },
+  { id: "margin-asc", label: "Margin: lowest first", compare: (a, b) => a.margin - b.margin },
+  { id: "rent-desc", label: "Rent: highest first", compare: (a, b) => b.costs.rent - a.costs.rent },
+  { id: "labour-desc", label: "Labour: highest first", compare: (a, b) => b.costs.labour - a.costs.labour },
+  { id: "waste-desc", label: "Food waste: highest first", compare: (a, b) => b.waste.cost_wasted - a.waste.cost_wasted },
+  { id: "name-asc", label: "Store name: A–Z", compare: (a, b) => a.store_name.localeCompare(b.store_name) },
+];
+
 const TREND_COLORS = ["var(--chart-2)", "var(--chart-1)", "var(--chart-3)", "var(--chart-5)", "var(--chart-4)"];
 const EVENTS = [
   { month: "2025-09", label: "Trinity opens" },
@@ -71,10 +87,12 @@ function Overview() {
   const navigate = useNavigate();
   const c = data.chain;
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all");
+  const [sort, setSort] = useState<string>("profit-asc");
   const [trendStores, setTrendStores] = useState<string[]>(["S03", "S12", "S07", "S04"]);
 
   const stores = useMemo(() => {
-    const list = [...data.stores].sort((a, b) => a.profit - b.profit);
+    const opt = SORTS.find((x) => x.id === sort) ?? SORTS[0]!;
+    const list = [...data.stores].sort(opt.compare);
     if (filter === "all") return list;
     return list.filter((s) => {
       const st = s.status.toLowerCase();
@@ -82,7 +100,7 @@ function Overview() {
       if (filter === "under") return st.includes("under");
       return !st.includes("well") && !st.includes("under");
     });
-  }, [data.stores, filter]);
+  }, [data.stores, filter, sort]);
 
   const profitBars = [...data.stores]
     .sort((a, b) => b.profit - a.profit)
@@ -99,7 +117,8 @@ function Overview() {
 
   const worst = [...data.stores].sort((a, b) => a.profit - b.profit)[0]!;
   const best = [...data.stores].sort((a, b) => b.profit - a.profit)[0]!;
-  const deliveryShare = (c.delivery_revenue / c.total_revenue) * 100;
+  const topTeam = topPerformingTeam(data.stores);
+  const staffSize = totalStaff(data.stores);
   const counts = {
     well: data.stores.filter((s) => s.status.toLowerCase().includes("well")).length,
     under: data.stores.filter((s) => s.status.toLowerCase().includes("under")).length,
@@ -108,19 +127,17 @@ function Overview() {
   return (
     <>
       <PageHeader
-        eyebrow={`FY 2025/26 · ${c.store_count} cafés · Anna Whitfield, CEO`}
         title={
           <>
             Sales are up. <em className="text-brand">Profit isn't.</em>
           </>
         }
-        description={`£${(c.total_revenue / 1e6).toFixed(2)}M in sales turned into ${gbpShort(c.total_profit)} of operating profit — a ${pct(c.overall_margin)} margin. Three problems explain most of the gap.`}
         actions={
           <Link
             to="/invest"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow transition hover:bg-primary/90"
           >
-            See the £1.5M plan <ArrowRight className="size-4" />
+            Go to Investment plan <ArrowRight className="size-4" />
           </Link>
         }
       />
@@ -142,17 +159,21 @@ function Overview() {
           icon={Banknote}
         />
         <Kpi
-          label="Food binned"
-          value={gbpShort(c.total_waste_cost)}
-          sub="Cost of unsold food"
-          tone="warning"
-          icon={Trash2}
+          label="Top performing team"
+          value={<span className="text-xl md:text-2xl">{topTeam ? topTeam.store.store_name : "—"}</span>}
+          sub={
+            topTeam
+              ? `${gbp(topTeam.profitPerHead)} profit per team member · ${topTeam.store.staff.headcount} staff`
+              : "No staff data"
+          }
+          tone="positive"
+          icon={Trophy}
         />
         <Kpi
-          label="Delivery share"
-          value={pct(deliveryShare)}
-          sub={`${gbpShort(c.total_delivery_costs)} paid in fees`}
-          icon={ShoppingBag}
+          label="Staff size"
+          value={n(staffSize)}
+          sub={`Across ${c.store_count} cafés · about ${Math.round(staffSize / Math.max(1, c.store_count))} per café`}
+          icon={Users}
         />
       </div>
 
@@ -178,10 +199,23 @@ function Overview() {
       </Briefing>
 
       <Panel
-        title="Store league table"
-        subtitle="Ranked from weakest to strongest profit. Tap a store for its full deep dive."
+        title="Store Overview"
+        subtitle="Sales, costs and profit for every café. Tap a store for its full deep dive."
         actions={
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <Select value={sort} onValueChange={setSort}>
+              <SelectTrigger className="h-8 w-56 bg-card text-xs" aria-label="Order by">
+                <ArrowUpDown className="size-3.5 text-muted-foreground" />
+                <SelectValue placeholder="Order by" />
+              </SelectTrigger>
+              <SelectContent>
+                {SORTS.map((o) => (
+                  <SelectItem key={o.id} value={o.id}>
+                    {o.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             {FILTERS.map((f) => (
               <button
                 key={f.id}

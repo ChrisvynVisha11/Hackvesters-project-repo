@@ -168,3 +168,20 @@ export function stressTest(amount: number, ebitda: number, profitShortfallPct = 
   const profit = ebitda * (1 - profitShortfallPct / 100);
   return { cost, profit, paybackYears: paybackYears(cost, profit) };
 }
+
+// ---------- Team performance ----------
+type TeamStore = { store_id: string; store_name: string; profit: number; staff: { headcount: number } };
+
+/** The café team earning the most operating profit per team member. */
+export function topPerformingTeam<T extends TeamStore>(stores: T[]) {
+  const ranked = stores
+    .filter((s) => s.staff.headcount > 0)
+    .map((s) => ({ store: s, profitPerHead: s.profit / s.staff.headcount }))
+    .sort((a, b) => b.profitPerHead - a.profitPerHead);
+  return ranked[0];
+}
+
+/** Total people employed across all cafés. */
+export function totalStaff(stores: TeamStore[]) {
+  return stores.reduce((a, s) => a + s.staff.headcount, 0);
+}

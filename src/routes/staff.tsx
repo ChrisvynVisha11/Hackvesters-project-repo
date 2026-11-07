@@ -28,13 +28,13 @@ import { gbp, n, pct } from "@/lib/format";
 export const Route = createFileRoute("/staff")({
   head: () => ({
     meta: [
-      { title: "Staff & Rota — Grind & Crumb CEO Command Centre" },
+      { title: "Staff & Rota — Grind and Crumb" },
       {
         name: "description",
         content:
-          "Staff turnover, staff happiness and the reasons people leave each Grind & Crumb café.",
+          "Staff turnover, staff happiness and the reasons people leave each Grind and Crumb café.",
       },
-      { property: "og:title", content: "Grind & Crumb — Staff & Rota" },
+      { property: "og:title", content: "Grind and Crumb — Staff & Rota" },
       { property: "og:description", content: "Turnover, staff happiness and exit reasons by café." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -65,8 +65,8 @@ function StaffPage() {
     <>
       <PageHeader
         eyebrow="Staff & rota"
-        title="Lunch is a firefight — and staff are leaving"
-        description="Turnover is worst where lunch queues are worst. The fix is where hours sit in the day, not how many there are."
+        title="Staff statistics"
+        description="Team size, turnover, staff happiness and the reasons people leave, for every café."
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
@@ -75,23 +75,6 @@ function StaffPage() {
         <Kpi label="Worst turnover" value={pct(worst.staff.turnover_rate_pct, 0)} sub={worst.store_name} tone="negative" />
         <Kpi label="Labour cost" value={gbp(data.chain.total_labour)} sub={`${pct((data.chain.total_labour / data.chain.total_revenue) * 100)} of sales`} />
       </div>
-
-      <Briefing title="Stopping the churn at the transit stores" question="How do we reduce staff turnover at Manchester Piccadilly?">
-        <div className="grid gap-4 md:grid-cols-3">
-          <BriefingPoint title="Turnover is catastrophic at transit hubs">
-            {worst.store_name} lost {worst.staff.leavers} people on a team of {worst.staff.headcount} (
-            {pct(worst.staff.turnover_rate_pct, 0)}) with a staff score of {worst.staff.avg_survey_score}/10.
-            Baristas leave for concourse chains paying 50p an hour more.
-          </BriefingPoint>
-          <BriefingPoint title="Why people leave">
-            Workload and understaffing at peak times, followed by better pay elsewhere, account for the
-            largest share of departures in the exit survey.
-          </BriefingPoint>
-          <BriefingPoint title="The fix">
-            Move hours into the 11:30–13:30 peak and pay a 50p/hour lunch premium at the transit stores.
-          </BriefingPoint>
-        </div>
-      </Briefing>
 
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Turnover & staff happiness by store" subtitle="Bars: yearly turnover % · line: survey score out of 10" className="lg:col-span-3">
@@ -132,6 +115,22 @@ function StaffPage() {
         </Panel>
       </div>
 
+      <Briefing title="Stopping the churn at the transit stores" question="How do we reduce staff turnover at Manchester Piccadilly?">
+        <div className="grid gap-4 md:grid-cols-3">
+          <BriefingPoint title="Turnover is catastrophic at transit hubs">
+            {worst.store_name} lost {worst.staff.leavers} people on a team of {worst.staff.headcount} (
+            {pct(worst.staff.turnover_rate_pct, 0)}) with a staff score of {worst.staff.avg_survey_score}/10.
+            Baristas leave for concourse chains paying 50p an hour more.
+          </BriefingPoint>
+          <BriefingPoint title="Why people leave">
+            Workload and understaffing at peak times, followed by better pay elsewhere, account for the
+            largest share of departures in the exit survey.
+          </BriefingPoint>
+          <BriefingPoint title="The fix">
+            Move hours into the 11:30–13:30 peak and pay a 50p/hour lunch premium at the transit stores.
+          </BriefingPoint>
+        </div>
+      </Briefing>
     </>
   );
 }

@@ -82,14 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Grind & Crumb — CEO Command Centre" },
+      { title: "Grind and Crumb" },
       {
         name: "description",
         content:
-          "Executive dashboard for Grind & Crumb: store performance, costs, waste, staffing and the £1.5M investment plan.",
+          "Dashboard for Grind and Crumb: store performance, costs, waste, staffing and the £1.5M investment plan.",
       },
-      { name: "author", content: "Grind & Crumb" },
-      { property: "og:title", content: "Grind & Crumb — CEO Command Centre" },
+      { name: "author", content: "Grind and Crumb" },
+      { property: "og:title", content: "Grind and Crumb" },
       {
         property: "og:description",
         content: "Store performance, costs, waste and the £1.5M investment plan in one place.",

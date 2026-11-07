@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Star } from "lucide-react";
+import { useState } from "react";
 import {
   Bar,
   BarChart,
@@ -28,6 +29,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useDashboard } from "@/lib/data-context";
 import { gbp, gbpShort, monthLabel, n, pct } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 const searchSchema = z.object({ store: z.string().optional() });
 
@@ -35,13 +37,13 @@ export const Route = createFileRoute("/stores")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Store Deep Dive — Grind & Crumb CEO Command Centre" },
+      { title: "Store Deep Dive — Grind and Crumb" },
       {
         name: "description",
         content:
-          "Full profit and loss, footfall, rota, reviews and a tailored turnaround plan for each of the 12 Grind & Crumb cafés.",
+          "Full profit and loss, footfall, rota, reviews and a tailored turnaround plan for each of the 12 Grind and Crumb cafés.",
       },
-      { property: "og:title", content: "Grind & Crumb — Store Deep Dive" },
+      { property: "og:title", content: "Grind and Crumb — Store Deep Dive" },
       {
         property: "og:description",
         content: "Profit and loss, footfall, staffing and reviews for every café.",
@@ -63,10 +65,30 @@ const COMPLAINT_LABELS: Record<string, string> = {
   price: "Price",
 };
 
+type ReviewSort = "latest" | "oldest" | "lowest" | "highest";
+const REVIEW_SORTS: { id: ReviewSort; label: string }[] = [
+  { id: "latest", label: "Latest" },
+  { id: "oldest", label: "Oldest" },
+  { id: "lowest", label: "Lowest rating" },
+  { id: "highest", label: "Highest rating" },
+];
+
+type Review = { rating: number; text: string; date: string };
+function sortReviews(list: Review[], by: ReviewSort) {
+  const time = (r: Review) => new Date(r.date).getTime();
+  return [...list].sort((a, b) => {
+    if (by === "latest") return time(b) - time(a);
+    if (by === "oldest") return time(a) - time(b);
+    if (by === "lowest") return a.rating - b.rating || time(b) - time(a);
+    return b.rating - a.rating || time(b) - time(a);
+  });
+}
+
 function StoresPage() {
   const { data } = useDashboard();
   const { store: storeId } = Route.useSearch();
   const navigate = useNavigate({ from: "/stores" });
+  const [reviewSort, setReviewSort] = useState<ReviewSort>("latest");
   const s = data.stores.find((x) => x.store_id === storeId) ?? data.stores.find((x) => x.store_id === "S07")!;
   const c = s.costs;
 
@@ -98,8 +120,9 @@ function StoresPage() {
     perHour: d.hours > 0 ? Math.round(d.visitors / d.hours) : 0,
   }));
 
-  const reviews = Array.from(
-    new Map(s.customer.sample_reviews.filter((r) => r.text).map((r) => [r.text, r])).values(),
+  const reviews = sortReviews(
+    Array.from(new Map(s.customer.sample_reviews.filter((r) => r.text).map((r) => [r.text, r])).values()),
+    reviewSort,
   ).slice(0, 6);
   const complaints = Object.entries(s.customer.complaints).sort((a, b) => b[1] - a[1]);
 
@@ -153,32 +176,8 @@ function StoresPage() {
         />
       </div>
 
-      <section className="surface-ink relative overflow-hidden p-6 md:p-8">
-        <div className="flex flex-wrap items-center gap-3">
-          <p className="eyebrow text-sidebar-primary">Advisor diagnosis</p>
-          <StatusBadge status={s.status} />
-        </div>
-        <h2 className="mt-2 max-w-3xl text-2xl leading-snug md:text-3xl">{s.ai_diagnostic.headline}</h2>
-        <p className="mt-4 max-w-4xl text-[0.95rem] leading-relaxed text-ink-foreground/85">
-          {s.ai_diagnostic.why_underperforming}
-        </p>
-        <ol className="mt-5 grid gap-3 md:grid-cols-2">
-          {s.ai_diagnostic.actionable_recommendations.map((r, i) => (
-            <li key={i} className="flex gap-3 rounded-lg bg-ink-foreground/5 p-3 text-sm text-ink-foreground/90">
-              <span className="num text-sidebar-primary">{String(i + 1).padStart(2, "0")}</span>
-              <span>{r}</span>
-            </li>
-          ))}
-        </ol>
-        <AskChip
-          inverted
-          className="mt-6"
-          question={`What should we do first to improve ${s.store_name}?`}
-        />
-      </section>
-
       <div className="grid gap-6 lg:grid-cols-5">
-        <Panel title="Profit & loss" subtitle="Full year, FY 2025/26" className="lg:col-span-2" bodyClassName="p-0">
+        <Panel title="Profit & loss" subtitle="Full year" className="lg:col-span-2" bodyClassName="p-0">
           <table className="w-full text-sm">
             <tbody>
               {pnl.map((row) => (
@@ -261,7 +260,26 @@ function StoresPage() {
               </Pill>
             ))}
           </div>
-          <ul className="mt-4 grid gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-1.5">
+            <span className="eyebrow mr-1 text-muted-foreground">Sort reviews</span>
+            {REVIEW_SORTS.map((o) => (
+              <button
+                key={o.id}
+                type="button"
+                aria-pressed={reviewSort === o.id}
+                onClick={() => setReviewSort(o.id)}
+                className={cn(
+                  "rounded-full px-3 py-1 text-xs font-semibold transition",
+                  reviewSort === o.id
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-accent",
+                )}
+              >
+                {o.label}
+              </button>
+            ))}
+          </div>
+          <ul className="mt-3 grid gap-3">
             {reviews.map((r, i) => (
               <li key={i} className="rounded-lg border bg-background p-3 text-sm">
                 <div className="mb-1 flex items-center gap-2 text-xs text-muted-foreground">
@@ -274,6 +292,30 @@ function StoresPage() {
           </ul>
         </Panel>
       </div>
+
+      <section className="surface-ink relative overflow-hidden p-6 md:p-8">
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="eyebrow text-sidebar-primary">Advisor diagnosis</p>
+          <StatusBadge status={s.status} />
+        </div>
+        <h2 className="mt-2 max-w-3xl text-2xl leading-snug md:text-3xl">{s.ai_diagnostic.headline}</h2>
+        <p className="mt-4 max-w-4xl text-[0.95rem] leading-relaxed text-ink-foreground/85">
+          {s.ai_diagnostic.why_underperforming}
+        </p>
+        <ol className="mt-5 grid gap-3 md:grid-cols-2">
+          {s.ai_diagnostic.actionable_recommendations.map((r, i) => (
+            <li key={i} className="flex gap-3 rounded-lg bg-ink-foreground/5 p-3 text-sm text-ink-foreground/90">
+              <span className="num text-sidebar-primary">{String(i + 1).padStart(2, "0")}</span>
+              <span>{r}</span>
+            </li>
+          ))}
+        </ol>
+        <AskChip
+          inverted
+          className="mt-6"
+          question={`What should we do first to improve ${s.store_name}?`}
+        />
+      </section>
     </>
   );
 }
