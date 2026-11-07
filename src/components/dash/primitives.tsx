@@ -13,7 +13,7 @@ export function PageHeader({
   description,
   actions,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
@@ -21,8 +21,8 @@ export function PageHeader({
   return (
     <header className="animate-rise flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div className="max-w-3xl">
-        <p className="eyebrow text-brand">{eyebrow}</p>
-        <h1 className="mt-2 text-3xl leading-tight font-medium md:text-[2.6rem]">{title}</h1>
+        {eyebrow && <p className="eyebrow mb-2 text-brand">{eyebrow}</p>}
+        <h1 className="text-3xl leading-tight font-medium md:text-[2.6rem]">{title}</h1>
         {description && (
           <p className="mt-3 text-base text-muted-foreground md:text-lg">{description}</p>
         )}

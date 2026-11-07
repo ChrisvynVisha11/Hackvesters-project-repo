@@ -25,7 +25,6 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/", label: "Overview", short: "Overview", icon: LayoutDashboard },
-  { to: "/invest", label: "£1.5M Investment Plan", short: "£1.5M Plan", icon: PiggyBank, highlight: true },
   { to: "/timeline", label: "Store Timeline", short: "Timeline", icon: CalendarDays },
   { to: "/stores", label: "Store Deep Dive", short: "Stores", icon: Store },
   { to: "/costs", label: "Costs & Savings", short: "Costs", icon: Receipt },
@@ -34,6 +33,7 @@ const NAV = [
   { to: "/staff", label: "Staff & Rota", short: "Staff", icon: Users },
   { to: "/waste", label: "Food Waste", short: "Waste", icon: Trash2 },
   { to: "/upload", label: "Upload Data", short: "Upload", icon: Upload },
+  { to: "/invest", label: "£1.5M Investment Plan", short: "£1.5M Plan", icon: PiggyBank, highlight: true },
 ] as const;
 
 const isActive = (path: string, to: string) => (to === "/" ? path === "/" : path.startsWith(to));
@@ -43,8 +43,7 @@ function Brand() {
     <Link to="/" className="flex min-w-0 items-center gap-3">
       <AdvisorMark className="size-9 shrink-0" />
       <div className="min-w-0 leading-tight">
-        <div className="truncate font-display text-lg text-sidebar-accent-foreground">Grind &amp; Crumb</div>
-        <div className="eyebrow truncate text-[0.6rem] text-sidebar-foreground/60">CEO Command Centre</div>
+        <div className="truncate font-display text-lg text-sidebar-accent-foreground">Grind and Crumb</div>
       </div>
     </Link>
   );
@@ -129,7 +128,6 @@ function SidebarFooter() {
           <div className="text-xs opacity-85">Gemini-powered answers</div>
         </div>
       </button>
-      <p className="px-1 text-[0.7rem] text-sidebar-foreground/50">FY 2025/26 · Jul 2025 – Jun 2026</p>
     </div>
   );
 }
