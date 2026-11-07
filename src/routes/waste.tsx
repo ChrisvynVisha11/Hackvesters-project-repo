@@ -129,7 +129,7 @@ function WastePage() {
         </div>
       </Panel>
 
-      <div className="grid gap-6 lg:grid-cols-5">
+      <div className="grid items-start gap-6 lg:grid-cols-5">
         <Panel title="Waste cost by store" subtitle="Annual cost of food binned" className="lg:col-span-3">
           <div className="h-80">
             <ChartFrame>

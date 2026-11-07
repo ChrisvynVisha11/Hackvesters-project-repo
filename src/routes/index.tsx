@@ -127,11 +127,7 @@ function Overview() {
   return (
     <>
       <PageHeader
-        title={
-          <>
-            Sales are up. <em className="text-brand">Profit isn't.</em>
-          </>
-        }
+        title="Overview Statistics"
         actions={
           <Link
             to="/invest"
@@ -176,27 +172,6 @@ function Overview() {
           icon={Users}
         />
       </div>
-
-      <Briefing
-        title="Three drag factors are holding profit flat across the estate"
-        question="What are the three biggest things dragging our profit down?"
-      >
-        <BriefingPoint title={`The Piccadilly rent trap — ${worst.store_name}`}>
-          Highest sales in the chain ({gbpShort(worst.sales.total)}) yet it loses{" "}
-          {gbp(Math.abs(worst.profit))}. Rent of {gbp(worst.costs.rent)} a year (
-          {pct((worst.costs.rent / worst.sales.total) * 100, 0)} of sales) meets a lunchtime queue
-          jammed by delivery riders, so commuters walk off to station rivals. Staff turnover is{" "}
-          {pct(worst.staff.turnover_rate_pct, 0)}.
-        </BriefingPoint>
-        <BriefingPoint title="Leeds cannibalisation and waste">
-          Opening Leeds Trinity in September 2025 pulled around 22% of sales away from Leeds Briggate,
-          which kept last year's prep levels — making it the chain's highest food-waste store.
-        </BriefingPoint>
-        <BriefingPoint title="Delivery is squeezing margin">
-          29% of delivery orders are under £8 and lose money after commission, packaging and barista
-          time. Dashly also raised its commission from 27% to 33% on 1 April.
-        </BriefingPoint>
-      </Briefing>
 
       <Panel
         title="Store Overview"
@@ -424,6 +399,27 @@ function Overview() {
           {gbp(best.profit)} profit ({pct(best.margin)} margin).
         </p>
       </section>
+
+      <Briefing
+        title="Three drag factors are holding profit flat across the estate"
+        question="What are the three biggest things dragging our profit down?"
+      >
+        <BriefingPoint title={`The Piccadilly rent trap — ${worst.store_name}`}>
+          Highest sales in the chain ({gbpShort(worst.sales.total)}) yet it loses{" "}
+          {gbp(Math.abs(worst.profit))}. Rent of {gbp(worst.costs.rent)} a year (
+          {pct((worst.costs.rent / worst.sales.total) * 100, 0)} of sales) meets a lunchtime queue
+          jammed by delivery riders, so commuters walk off to station rivals. Staff turnover is{" "}
+          {pct(worst.staff.turnover_rate_pct, 0)}.
+        </BriefingPoint>
+        <BriefingPoint title="Leeds cannibalisation and waste">
+          Opening Leeds Trinity in September 2025 pulled around 22% of sales away from Leeds Briggate,
+          which kept last year's prep levels — making it the chain's highest food-waste store.
+        </BriefingPoint>
+        <BriefingPoint title="Delivery is squeezing margin">
+          29% of delivery orders are under £8 and lose money after commission, packaging and barista
+          time. Dashly also raised its commission from 27% to 33% on 1 April.
+        </BriefingPoint>
+      </Briefing>
     </>
   );
 }

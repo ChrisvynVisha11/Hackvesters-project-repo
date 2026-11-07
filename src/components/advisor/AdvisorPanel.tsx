@@ -133,7 +133,7 @@ export function AdvisorPanel() {
     <div
       ref={boxRef}
       role="dialog"
-      aria-label="Board Advisor"
+      aria-label="Chatbot"
       style={style}
       className={cn(
         "fixed z-50 flex min-w-0 flex-col overflow-hidden bg-background shadow-2xl",
@@ -162,8 +162,8 @@ export function AdvisorPanel() {
         {!small && <GripHorizontal className="size-4 shrink-0 text-muted-foreground" aria-hidden />}
         <AdvisorMark className="size-8 shrink-0" />
         <div className="min-w-0 flex-1">
-          <div className="truncate font-display text-lg leading-tight">Board Advisor</div>
-          <div className="truncate text-[0.7rem] text-muted-foreground">Gemini · knows every store, cost and site</div>
+          <div className="truncate font-display text-lg leading-tight">Chatbot</div>
+          <div className="truncate text-[0.7rem] text-muted-foreground">Powered by Gemini · knows every store, cost and site</div>
         </div>
         {messages.length > 0 && (
           <Button variant="ghost" size="sm" onClick={newConversation} className="h-8 gap-1 px-2" aria-label="New chat">
