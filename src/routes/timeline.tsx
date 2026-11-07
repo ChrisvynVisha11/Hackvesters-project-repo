@@ -7,7 +7,7 @@ import { AskChip, axisProps, chartTooltipStyle, ChartFrame, Kpi, PageHeader, Pan
 import { ScrollRow } from "@/components/dash/ScrollRow";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import bundledDaily from "@/data/daily.json";
 import { useDashboard } from "@/lib/data-context";
 import { gbp, gbpPence, gbpShort, n, pct } from "@/lib/format";
@@ -112,7 +112,7 @@ function TimelinePage() {
   return (
     <>
       <PageHeader
-        eyebrow="Timeline · FY 2025/26"
+        eyebrow="Timeline"
         title="Store results, day by day"
         description="Pick a café and a time length, then step through the year to see sales, profit, visitors and food waste for any single day, week, month or year."
         actions={<AskChip question={`What stands out in ${storeName}'s results for ${period.label}?`} />}
@@ -204,15 +204,22 @@ function TimelinePage() {
                 <ChevronRight className="size-4" />
               </Button>
             </div>
-            {list.length > 2 && (
-              <Slider
-                min={0}
-                max={list.length - 1}
-                step={1}
-                value={[idx]}
-                onValueChange={([v]) => v !== undefined && setAnchor(list[v]!.from)}
-                aria-label={`Choose a ${noun}`}
-              />
+            {list.length > 1 && (
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="eyebrow text-muted-foreground">Choose a {noun}</span>
+                <Select value={String(idx)} onValueChange={(v) => setAnchor(list[Number(v)]!.from)}>
+                  <SelectTrigger className="w-72 bg-card" aria-label={`Choose a ${noun}`}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-80">
+                    {list.map((p, i) => (
+                      <SelectItem key={p.key} value={String(i)}>
+                        {p.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             )}
           </div>
         )}
