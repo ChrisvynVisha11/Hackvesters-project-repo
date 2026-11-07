@@ -3,35 +3,6 @@
 **Live web app:** [WEB_APP_URL](https://grind-n-crumb.lovable.app)
 **Executive report (2 pages):** [Grind_and_Crumb_Report.pdf](./Grind_and_Crumb_Report.pdf)
 
-Sales rose **14%** (July 2025 to June 2026), but store margin fell from **14.1% to 12.3%**. The growth came through the most expensive routes:
-
-| Finding | What the data shows |
-|---|---|
-| **Piccadilly, the biggest café, loses money** | −£48k on £1.11m of sales. Rent is 33% of sales (chain median 14%). Only 33% of lunch visitors buy, against 41–46% elsewhere. Staff turnover is 230%. |
-| **Delivery dilutes the margin** | Delivery rose from 11% to 23% of sales, but each £1 keeps only 59p after commission, packaging and staff time. Dashly's rise from 27% to 33% commission costs about £42k a year. |
-| **The app relaunch lost orders** | App sales are still 18% down since v3.0 (about £188k a year). App and stamp complaints went from 0 to 71. |
-| **Leeds Trinity took trade from Briggate** | Briggate's sales fell 22% and combined Leeds profit fell 35%, while the other cafés' profit rose 17%. |
-| **Hull over-orders** | It bins 21% of the food it prepares (chain rate 9%), repair bills are 3× the median, and all 43 hygiene complaints are about Hull. |
-
-### Recommendation: commit £1.225m now, hold £275k until a month-6 check
-
-| Investment | £ | Extra profit/yr (planner) | Extra profit/yr (our stress test) |
-|---|---:|---:|---:|
-| New café: Manchester Oxford Road (CS3) | 240,000 | 192,478 | 135,000 |
-| New café: York Railway Station kiosk (CS4) | 180,000 | 134,778 | 77,000 |
-| Digital: fix the app + par-level forecasting | 160,000 | 62,000 | 62,000 |
-| York Stonegate refit (S04) | 160,000 | 45,000 | 45,000 |
-| Piccadilly pickup hatch + lunch staff (S07) | 90,000 | 65,000 | 44,000 |
-| Energy-saving equipment, all cafés | 85,000 | 21,000 | 21,000 |
-| Spinningfields grab-and-go lunch (S06) | 60,000 | 32,000 | 32,000 |
-| Hull refurbishment (S10) | 50,000 | 18,000 | 18,000 |
-| Capital contingency reserve | 200,000 | – | – |
-| **Committed** | **1,225,000** | **+570,256 (2.15-yr payback)** | **+434,000 (2.8-yr payback)** |
-
-The remaining **£275k** is released at month 6 only if both new cafés are trading at ≥90% of plan. If they are, it goes to Leeds Headingley. If Manchester staff turnover is still above 100%, it goes to a lunch retention premium instead. Otherwise it returns to the board. The full evidence, risks, data issues and assumptions are in the report.
-
----
-
 ## What the app does
 
 | Page | Purpose |
