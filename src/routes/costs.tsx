@@ -22,7 +22,7 @@ export const Route = createFileRoute("/costs")({
       {
         name: "description",
         content:
-          "Where Grind & Crumb's £7.6M of costs go, what can be renegotiated, and a simulator for the annual savings.",
+          "Where Grind and Crumb's £7.6M of costs go, what can be renegotiated, and a simulator for the annual savings.",
       },
       { property: "og:title", content: "Grind and Crumb — Costs & Savings" },
       { property: "og:description", content: "Cost breakdown and a savings simulator for the café chain." },

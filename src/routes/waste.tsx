@@ -20,7 +20,7 @@ export const Route = createFileRoute("/waste")({
       {
         name: "description",
         content:
-          "How much food each Grind & Crumb café bins, which categories cost most, and three ways to cut it.",
+          "How much food each Grind and Crumb café bins, which categories cost most, and three ways to cut it.",
       },
       { property: "og:title", content: "Grind and Crumb — Food Waste" },
       { property: "og:description", content: "Food waste by store and category, with fixes." },

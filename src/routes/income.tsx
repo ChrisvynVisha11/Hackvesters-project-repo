@@ -15,7 +15,7 @@ export const Route = createFileRoute("/income")({
       {
         name: "description",
         content:
-          "Sales by channel, best and worst sellers, and the margin and return on every one of Grind & Crumb's 38 menu items.",
+          "Sales by channel, best and worst sellers, and the margin and return on every one of Grind and Crumb's 38 menu items.",
       },
       { property: "og:title", content: "Grind and Crumb — Income & Menu" },
       { property: "og:description", content: "Channel mix, best sellers and menu margins." },

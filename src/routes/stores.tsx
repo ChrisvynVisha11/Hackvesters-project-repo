@@ -39,7 +39,7 @@ export const Route = createFileRoute("/stores")({
       {
         name: "description",
         content:
-          "Full profit and loss, footfall, rota, reviews and a tailored turnaround plan for each of the 12 Grind & Crumb cafés.",
+          "Full profit and loss, footfall, rota, reviews and a tailored turnaround plan for each of the 12 Grind and Crumb cafés.",
       },
       { property: "og:title", content: "Grind and Crumb — Store Deep Dive" },
       {

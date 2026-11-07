@@ -18,7 +18,7 @@ export const Route = createFileRoute("/upload")({
       { title: "Upload Data — Grind and Crumb" },
       {
         name: "description",
-        content: "Upload updated sales, waste, rota or cost files to refresh every Grind & Crumb dashboard figure.",
+        content: "Upload updated sales, waste, rota or cost files to refresh every Grind and Crumb dashboard figure.",
       },
       { property: "og:title", content: "Grind and Crumb — Upload New Data" },
       { property: "og:description", content: "Refresh the dashboard with updated CSV files." },
@@ -169,7 +169,7 @@ function UploadPage() {
       <Panel title="This session" subtitle="Uploads stay in this browser tab until you reset or reload">
         {uploads.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No uploads yet — you're viewing the original FY 2025/26 data (profit {gbp(data.chain.total_profit)},{" "}
+            No uploads yet — you're viewing the original data (profit {gbp(data.chain.total_profit)},{" "}
             {pct(data.chain.overall_margin)} margin).
           </p>
         ) : (

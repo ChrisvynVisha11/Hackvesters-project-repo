@@ -24,7 +24,7 @@ export const Route = createFileRoute("/invest")({
       {
         name: "description",
         content:
-          "Build your own £1.5M investment plan for Grind & Crumb: new sites, improvements to current cafés, editable amounts and a risk review for every option.",
+          "Build your own £1.5M investment plan for Grind and Crumb: new sites, improvements to current cafés, editable amounts and a risk review for every option.",
       },
       { property: "og:title", content: "Grind and Crumb — The £1.5M Investment Plan" },
       {

@@ -31,7 +31,7 @@ export const Route = createFileRoute("/timeline")({
       {
         name: "description",
         content:
-          "Step through Grind & Crumb's year day by day, week by week or month by month to see each café's sales, profit, footfall and food waste.",
+          "Step through Grind and Crumb's year day by day, week by week or month by month to see each café's sales, profit, footfall and food waste.",
       },
       { property: "og:title", content: "Grind and Crumb — Store Timeline" },
       {

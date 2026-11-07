@@ -32,7 +32,7 @@ export const Route = createFileRoute("/staff")({
       {
         name: "description",
         content:
-          "Staff turnover, staff happiness and the reasons people leave each Grind & Crumb café.",
+          "Staff turnover, staff happiness and the reasons people leave each Grind and Crumb café.",
       },
       { property: "og:title", content: "Grind and Crumb — Staff & Rota" },
       { property: "og:description", content: "Turnover, staff happiness and exit reasons by café." },

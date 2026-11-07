@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "How all 12 Grind & Crumb cafés performed in FY 2025/26: sales, profit, the stores dragging margin down and what to fix first.",
+          "How all 12 Grind and Crumb cafés performed: sales, profit, the stores dragging margin down and what to fix first.",
       },
       { property: "og:title", content: "Grind and Crumb — Portfolio Overview" },
       {
