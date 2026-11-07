@@ -67,7 +67,7 @@ function CostsPage() {
     <>
       <PageHeader
         eyebrow="Costs & savings"
-        title="Where the money goes"
+        title="Spending/Costs"
         description={`${gbp(c.total_expenses)} of costs against ${gbp(c.total_revenue)} of sales. Labour, ingredients and rent make up ${pct(((c.total_labour + c.total_cogs + c.total_rent) / c.total_expenses) * 100, 0)} of the bill.`}
       />
 

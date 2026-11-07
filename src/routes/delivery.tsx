@@ -75,8 +75,8 @@ function DeliveryPage() {
     <>
       <PageHeader
         eyebrow="Delivery"
-        title="Delivery is growing — but leaking margin"
-        description={`${gbp(c.delivery_revenue)} of delivery sales cost ${gbp(c.total_delivery_costs)} in commission and packaging before a single barista minute is counted.`}
+        title="Delivery statistics"
+        description="Delivery sales, partner fees and order sizes across all cafés, plus a calculator to test pricing rules."
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">

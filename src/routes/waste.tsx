@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis } from "recharts";
 
 import {
   axisProps,
@@ -31,6 +31,21 @@ export const Route = createFileRoute("/waste")({
   component: WastePage,
 });
 
+const PIE_COLORS = [
+  "var(--chart-2)",
+  "var(--chart-1)",
+  "var(--chart-4)",
+  "var(--chart-3)",
+  "var(--chart-5)",
+  "var(--negative)",
+  "var(--warning)",
+  "var(--positive)",
+  "var(--brand-soft)",
+  "var(--muted-foreground)",
+  "var(--sidebar-accent)",
+  "var(--accent)",
+];
+
 function WastePage() {
   const { data } = useDashboard();
   const stores = [...data.stores].sort((a, b) => b.waste.cost_wasted - a.waste.cost_wasted);
@@ -48,14 +63,21 @@ function WastePage() {
     .map(([name, v]) => ({ name, ...v, pct: v.prep ? (v.wasted / v.prep) * 100 : 0 }))
     .sort((a, b) => b.cost - a.cost);
   const total = data.chain.total_waste_cost;
-  const top3 = stores.slice(0, 3);
+  const storeTotal = stores.reduce((a, s) => a + s.waste.cost_wasted, 0);
+  const pie = stores.map((s, i) => ({
+    id: s.store_id,
+    name: s.store_name,
+    cost: Math.round(s.waste.cost_wasted),
+    share: storeTotal ? (s.waste.cost_wasted / storeTotal) * 100 : 0,
+    color: PIE_COLORS[i % PIE_COLORS.length]!,
+  }));
 
   return (
     <>
       <PageHeader
         eyebrow="Food waste"
-        title={`${gbp(total)} of food went in the bin`}
-        description={`Highest at ${top3.map((s) => s.store_name).join(", ")}. Prep levels are set centrally and haven't changed with the seasons or footfall.`}
+        title="Food Waste"
+        description="How much food each café prepares and throws away, by store and by category."
       />
 
       <div className="grid gap-3 md:grid-cols-3 md:gap-4">
@@ -72,6 +94,40 @@ function WastePage() {
           </div>
         ))}
       </div>
+
+      <Panel title="Share of waste by store" subtitle="Each café's slice of the total cost of food binned">
+        <div className="grid items-center gap-6 md:grid-cols-2">
+          <div className="h-80">
+            <ChartFrame>
+              <PieChart>
+                <Pie
+                  data={pie}
+                  dataKey="cost"
+                  nameKey="name"
+                  innerRadius="50%"
+                  outerRadius="88%"
+                  paddingAngle={1.2}
+                  stroke="var(--card)"
+                >
+                  {pie.map((x) => (
+                    <Cell key={x.id} fill={x.color} />
+                  ))}
+                </Pie>
+                <Tooltip {...chartTooltipStyle} formatter={(v: number) => [gbp(v), "Wasted"]} />
+              </PieChart>
+            </ChartFrame>
+          </div>
+          <ul className="grid gap-1.5 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+            {pie.map((x) => (
+              <li key={x.id} className="flex items-center gap-2 text-sm">
+                <span className="size-3 shrink-0 rounded-sm" style={{ background: x.color }} />
+                <span className="min-w-0 flex-1 truncate">{x.name}</span>
+                <span className="num text-xs text-muted-foreground">{pct(x.share)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Panel>
 
       <div className="grid gap-6 lg:grid-cols-5">
         <Panel title="Waste cost by store" subtitle="Annual cost of food binned" className="lg:col-span-3">

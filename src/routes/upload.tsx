@@ -87,9 +87,9 @@ function UploadPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Upload new data"
-        title="Refresh the numbers"
-        description="Upload an updated version of one of the files below. Every page — and the store rankings — recalculates instantly for this session."
+        eyebrow="Upload"
+        title="Upload new data"
+        description="Add updated CSV files to refresh the figures across every page of the dashboard."
         actions={
           isModified && (
             <Button variant="outline" onClick={reset} className="gap-1.5">

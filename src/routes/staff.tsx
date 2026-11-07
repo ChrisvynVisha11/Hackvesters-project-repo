@@ -65,8 +65,8 @@ function StaffPage() {
     <>
       <PageHeader
         eyebrow="Staff & rota"
-        title="Lunch is a firefight — and staff are leaving"
-        description="Turnover is worst where lunch queues are worst. The fix is where hours sit in the day, not how many there are."
+        title="Staff statistics"
+        description="Team size, turnover, staff happiness and the reasons people leave, for every café."
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
