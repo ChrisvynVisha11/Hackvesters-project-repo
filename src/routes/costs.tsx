@@ -18,13 +18,13 @@ import { COST_LEVERS, costSavings, marginAfterSavings } from "@/lib/models";
 export const Route = createFileRoute("/costs")({
   head: () => ({
     meta: [
-      { title: "Costs & Savings — Grind & Crumb CEO Command Centre" },
+      { title: "Costs & Savings — Grind and Crumb" },
       {
         name: "description",
         content:
           "Where Grind & Crumb's £7.6M of costs go, what can be renegotiated, and a simulator for the annual savings.",
       },
-      { property: "og:title", content: "Grind & Crumb — Costs & Savings" },
+      { property: "og:title", content: "Grind and Crumb — Costs & Savings" },
       { property: "og:description", content: "Cost breakdown and a savings simulator for the café chain." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -34,13 +34,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Overview — Grind & Crumb CEO Command Centre" },
+      { title: "Overview — Grind and Crumb" },
       {
         name: "description",
         content:
           "How all 12 Grind & Crumb cafés performed in FY 2025/26: sales, profit, the stores dragging margin down and what to fix first.",
       },
-      { property: "og:title", content: "Grind & Crumb — Portfolio Overview" },
+      { property: "og:title", content: "Grind and Crumb — Portfolio Overview" },
       {
         property: "og:description",
         content: "Sales, profit and the stores dragging margin down across all 12 cafés.",

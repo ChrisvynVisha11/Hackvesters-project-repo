@@ -35,13 +35,13 @@ export const Route = createFileRoute("/stores")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Store Deep Dive — Grind & Crumb CEO Command Centre" },
+      { title: "Store Deep Dive — Grind and Crumb" },
       {
         name: "description",
         content:
           "Full profit and loss, footfall, rota, reviews and a tailored turnaround plan for each of the 12 Grind & Crumb cafés.",
       },
-      { property: "og:title", content: "Grind & Crumb — Store Deep Dive" },
+      { property: "og:title", content: "Grind and Crumb — Store Deep Dive" },
       {
         property: "og:description",
         content: "Profit and loss, footfall, staffing and reviews for every café.",

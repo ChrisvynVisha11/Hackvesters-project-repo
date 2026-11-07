@@ -15,12 +15,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/upload")({
   head: () => ({
     meta: [
-      { title: "Upload Data — Grind & Crumb CEO Command Centre" },
+      { title: "Upload Data — Grind and Crumb" },
       {
         name: "description",
         content: "Upload updated sales, waste, rota or cost files to refresh every Grind & Crumb dashboard figure.",
       },
-      { property: "og:title", content: "Grind & Crumb — Upload New Data" },
+      { property: "og:title", content: "Grind and Crumb — Upload New Data" },
       { property: "og:description", content: "Refresh the dashboard with updated CSV files." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

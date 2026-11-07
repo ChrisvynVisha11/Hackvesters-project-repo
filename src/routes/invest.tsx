@@ -20,13 +20,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/invest")({
   head: () => ({
     meta: [
-      { title: "£1.5M Investment Plan — Grind & Crumb CEO Command Centre" },
+      { title: "£1.5M Investment Plan — Grind and Crumb" },
       {
         name: "description",
         content:
           "Build your own £1.5M investment plan for Grind & Crumb: new sites, improvements to current cafés, editable amounts and a risk review for every option.",
       },
-      { property: "og:title", content: "Grind & Crumb — The £1.5M Investment Plan" },
+      { property: "og:title", content: "Grind and Crumb — The £1.5M Investment Plan" },
       {
         property: "og:description",
         content: "Edit the plan, add your own investments and see payback and risks for each option.",

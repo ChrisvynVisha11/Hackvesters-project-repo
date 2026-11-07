@@ -20,13 +20,13 @@ import { deliveryEconomics, type DeliveryInputs } from "@/lib/models";
 export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
-      { title: "Delivery — Grind & Crumb CEO Command Centre" },
+      { title: "Delivery — Grind and Crumb" },
       {
         name: "description",
         content:
           "Why small delivery orders lose money, how RushEats and Dashly compare, and a pricing calculator to protect margin.",
       },
-      { property: "og:title", content: "Grind & Crumb — Delivery Economics" },
+      { property: "og:title", content: "Grind and Crumb — Delivery Economics" },
       { property: "og:description", content: "Delivery partner costs and a pricing calculator." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

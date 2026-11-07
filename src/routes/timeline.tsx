@@ -27,13 +27,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/timeline")({
   head: () => ({
     meta: [
-      { title: "Store Timeline — Grind & Crumb CEO Command Centre" },
+      { title: "Store Timeline — Grind and Crumb" },
       {
         name: "description",
         content:
           "Step through Grind & Crumb's year day by day, week by week or month by month to see each café's sales, profit, footfall and food waste.",
       },
-      { property: "og:title", content: "Grind & Crumb — Store Timeline" },
+      { property: "og:title", content: "Grind and Crumb — Store Timeline" },
       {
         property: "og:description",
         content: "Daily, weekly, monthly and yearly results for every café.",

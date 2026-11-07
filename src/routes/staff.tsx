@@ -28,13 +28,13 @@ import { gbp, n, pct } from "@/lib/format";
 export const Route = createFileRoute("/staff")({
   head: () => ({
     meta: [
-      { title: "Staff & Rota — Grind & Crumb CEO Command Centre" },
+      { title: "Staff & Rota — Grind and Crumb" },
       {
         name: "description",
         content:
           "Staff turnover, staff happiness and the reasons people leave each Grind & Crumb café.",
       },
-      { property: "og:title", content: "Grind & Crumb — Staff & Rota" },
+      { property: "og:title", content: "Grind and Crumb — Staff & Rota" },
       { property: "og:description", content: "Turnover, staff happiness and exit reasons by café." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

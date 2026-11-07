@@ -11,13 +11,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/income")({
   head: () => ({
     meta: [
-      { title: "Income & Menu — Grind & Crumb CEO Command Centre" },
+      { title: "Income & Menu — Grind and Crumb" },
       {
         name: "description",
         content:
           "Sales by channel, best and worst sellers, and the margin and return on every one of Grind & Crumb's 38 menu items.",
       },
-      { property: "og:title", content: "Grind & Crumb — Income & Menu" },
+      { property: "og:title", content: "Grind and Crumb — Income & Menu" },
       { property: "og:description", content: "Channel mix, best sellers and menu margins." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

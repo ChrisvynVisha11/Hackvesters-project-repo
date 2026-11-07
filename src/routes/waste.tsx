@@ -16,13 +16,13 @@ import { gbp, gbpShort, n, pct } from "@/lib/format";
 export const Route = createFileRoute("/waste")({
   head: () => ({
     meta: [
-      { title: "Food Waste — Grind & Crumb CEO Command Centre" },
+      { title: "Food Waste — Grind and Crumb" },
       {
         name: "description",
         content:
           "How much food each Grind & Crumb café bins, which categories cost most, and three ways to cut it.",
       },
-      { property: "og:title", content: "Grind & Crumb — Food Waste" },
+      { property: "og:title", content: "Grind and Crumb — Food Waste" },
       { property: "og:description", content: "Food waste by store and category, with fixes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
