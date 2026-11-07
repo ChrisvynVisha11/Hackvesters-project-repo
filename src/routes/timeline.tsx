@@ -118,7 +118,7 @@ function TimelinePage() {
         actions={<AskChip question={`What stands out in ${storeName}'s results for ${period.label}?`} />}
       />
 
-      <section className="surface grid gap-4 p-4 md:p-5">
+      <section className="surface grid grid-cols-1 gap-4 p-4 md:p-5">
         <div>
           <div className="eyebrow mb-2 text-muted-foreground">Café</div>
           <ScrollRow label="cafés" activeKey={store}>
