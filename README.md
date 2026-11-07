@@ -1,7 +1,7 @@
 # Hackvesters: Café chain ops dashboard and £1.5m investment planner for Grind & Crumb
 
 **Live web app:** [WEB_APP_URL](https://grind-n-crumb.lovable.app)
-**Executive report (2 pages):** [Grind_and_Crumb_Report.pdf](./Grind_and_Crumb_Report.pdf)
+**Executive report (2 pages):** [Grind_and_Crumb_Report.pdf](Hackvesters_Grind&Crumb_Report.docx)
 
 ## What the app does
 
