@@ -33,7 +33,7 @@ const NAV = [
   { to: "/staff", label: "Staff & Rota", short: "Staff", icon: Users },
   { to: "/waste", label: "Food Waste", short: "Waste", icon: Trash2 },
   { to: "/upload", label: "Upload Data", short: "Upload", icon: Upload },
-  { to: "/invest", label: "£1.5M Investment Plan", short: "£1.5M Plan", icon: PiggyBank, highlight: true },
+  { to: "/invest", label: "Investment plan", short: "Investment plan", icon: PiggyBank, highlight: true },
 ] as const;
 
 const isActive = (path: string, to: string) => (to === "/" ? path === "/" : path.startsWith(to));
@@ -124,8 +124,8 @@ function SidebarFooter() {
       >
         <MessageSquareText className="size-5" />
         <div>
-          <div className="text-sm font-semibold">Ask the Board Advisor</div>
-          <div className="text-xs opacity-85">Gemini-powered answers</div>
+          <div className="text-sm font-semibold">Chatbot</div>
+          <div className="text-xs opacity-85">Powered by Gemini</div>
         </div>
       </button>
     </div>
@@ -153,7 +153,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Button
               size="icon"
               variant="ghost"
-              aria-label="Ask the Board Advisor"
+              aria-label="Open the chatbot"
               onClick={() => setOpen(true)}
               className="text-sidebar-accent-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
@@ -192,7 +192,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           onClick={() => setOpen(true)}
           className="fixed right-4 bottom-4 z-30 flex items-center gap-2 rounded-full bg-gradient-brand px-4 py-3 text-sm font-semibold text-brand-foreground shadow-lg lg:hidden"
         >
-          <MessageSquareText className="size-4" /> Ask the advisor
+          <MessageSquareText className="size-4" /> Chatbot
         </button>
       )}
 

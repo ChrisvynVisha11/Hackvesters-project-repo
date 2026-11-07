@@ -20,7 +20,7 @@ export function AdvisorProvider({ children }: { children: ReactNode }) {
     onError: (err) => {
       const msg = err.message?.trim();
       toast.error(
-        msg && !msg.startsWith("{") ? msg : "The advisor couldn't be reached. Check your connection and try again.",
+        msg && !msg.startsWith("{") ? msg : "The chatbot couldn't be reached. Check your connection and try again.",
       );
     },
   });

@@ -144,7 +144,7 @@ export function RiskDialog({ item, onOpenChange }: { item: PlanItem | null; onOp
               );
             }}
           >
-            <MessageCircleQuestion className="size-4" /> Ask the advisor for a deeper review
+            <MessageCircleQuestion className="size-4" /> Ask the chatbot for a deeper review
           </Button>
         </div>
       </DialogContent>

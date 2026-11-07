@@ -20,13 +20,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/invest")({
   head: () => ({
     meta: [
-      { title: "£1.5M Investment Plan — Grind and Crumb" },
+      { title: "Investment Plan — Grind and Crumb" },
       {
         name: "description",
         content:
           "Build your own £1.5M investment plan for Grind and Crumb: new sites, improvements to current cafés, editable amounts and a risk review for every option.",
       },
-      { property: "og:title", content: "Grind and Crumb — The £1.5M Investment Plan" },
+      { property: "og:title", content: "Grind and Crumb — Investment Plan" },
       {
         property: "og:description",
         content: "Edit the plan, add your own investments and see payback and risks for each option.",
@@ -164,11 +164,7 @@ function InvestPage() {
     <>
       <PageHeader
         eyebrow={`Capital allocation · ${gbp(budget)}`}
-        title={
-          <>
-            Where the <em className="text-brand">{gbpShort(budget)}</em> should go
-          </>
-        }
+        title="Investment plan"
         description="Start from the recommended plan, then change any amount, add your own ideas, or swap in other sites. Every option has a risk review — click it to see what could go wrong in the first year and beyond."
         actions={<AskChip question="Talk me through the recommended £1.5M plan" />}
       />
@@ -212,7 +208,7 @@ function InvestPage() {
         actions={
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="sm" onClick={reviewPlan} className="gap-1.5">
-              <MessageCircleQuestion className="size-3.5" /> Ask the advisor to review my plan
+              <MessageCircleQuestion className="size-3.5" /> Ask the chatbot to review my plan
             </Button>
             <Button variant="outline" size="sm" onClick={reset} className="gap-1.5">
               <RotateCcw className="size-3.5" /> Reset to recommended
